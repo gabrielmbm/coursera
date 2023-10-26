@@ -159,12 +159,54 @@
 #
 #>>> Fim do programa <<<
 
-# def computador_escolhe_jogada(n, m):
+def computador_escolhe_jogada(n, m):
+    mMult = m + 1
+    if m > n:
+        computadorRetira = n
+    else:
+        computadorRetira = m
+
+    if n == 1:
+        computadorRetira = 1
+        print('O computador tirou uma peça.')
+        print('Fim do jogo! O computador ganhou!')
+        return computadorRetira
+    else:
+        restantePecas = n - computadorRetira
+        if restantePecas == 0:
+            if computadorRetira == 1:
+                print('')
+                print('O computador tirou uma peça.')
+                print('Fim do jogo! O computador ganhou!')
+                return computadorRetira
+            else:
+                print('')
+                print('O computador tirou ', computadorRetira , 'peças.')
+                print('Fim do jogo! O computador ganhou!')
+                return computadorRetira
+        else:
+            while (restantePecas % mMult) != 0:
+                computadorRetira -= 1
+                if computadorRetira < 1:
+                    computadorRetira = 1
+            if computadorRetira == 1:
+                n = n - computadorRetira
+                print('')
+                print('O computador tirou uma peça.')
+                print('Agora restam' , n , 'peças no tabuleiro.')
+                usuario_escolhe_jogada(n, m)
+                return computadorRetira
+            else:
+                n = n - computadorRetira
+                print('')
+                print('O computador tirou ', computadorRetira , 'peças.')
+                print('Agora restam' , n , 'peças no tabuleiro.')
+                usuario_escolhe_jogada(n, m)
+                return computadorRetira
 
 def usuario_escolhe_jogada(n, m):
     pecasRetira = int(input('Quantas peças você vai tirar? '))
-    pecasRestantes = n
-
+    
     while pecasRetira > m or pecasRetira <= 0:
         print('')
         print('Oops! Jogada inválida! Tente de novo.\n')
@@ -172,38 +214,56 @@ def usuario_escolhe_jogada(n, m):
     if pecasRetira == 1:
         print('')
         print('Você tirou uma peça.')
-        pecasRestantes = pecasRestantes - pecasRetira
-        if pecasRestantes == 1:
+        n = n - pecasRetira
+        if n == 1:
             print('Agora resta apenas uma peça no tabuleiro.\n')
+            computador_escolhe_jogada(n, m)
             return pecasRetira
         else:
-            print('Agora restam' , pecasRestantes , 'peças no tabuleiro.')
+            print('Agora restam' , n , 'peças no tabuleiro.')
+            computador_escolhe_jogada(n, m)
             return pecasRetira
     else:
         print('')
         print('Voce tirou' , pecasRetira , 'peças.')
-        pecasRestantes = pecasRestantes - pecasRetira
-        if pecasRestantes == 1:
+        n = n - pecasRetira
+        if n == 1:
             print('Agora resta apenas uma peça no tabuleiro.\n')
+            computador_escolhe_jogada(n, m)
             return pecasRetira
         else:
-            print('Agora restam' , pecasRestantes , 'peças no tabuleiro.')
+            print('Agora restam' , n , 'peças no tabuleiro.')
+            computador_escolhe_jogada(n, m)
             return pecasRetira
 
 def partida():
     n = int(input('Quantas peças? '))
     m = int(input('Limite de peças por jogada? '))
     multiplo = n % (m + 1)
-    pecasRestantes = n
-    
+        
     if multiplo == 0:
         print('')
         print('Você começa! \n')
         usuario_escolhe_jogada(n, m)
+
     else:
         print('')
-        print('Computador começa! \n')
-        #computador_escolhe_jogada(n, m)
+        print('Computador começa!')
+        computador_escolhe_jogada(n, m)
+
+def campeonato():
+    print('')
+    print('Voce escolheu um campeonato! \n')
+
+    i = 1
+    while i < 4:
+        print('**** Rodada' , i , '**** \n')
+        i += 1
+        partida()
+
+    print('**** Final do campeonato! **** \n')
+    print('Placar: Você 0 X 3 Computador')
+
 
 def main():
     print ('Bem-vindo ao jogo do NIM! Escolha: \n')
@@ -214,8 +274,8 @@ def main():
         partida()
         #print('Opção 1')
     elif optionUser == 2:
-        #campeonato()
-        print('Opção 2')
+        campeonato()
+        #print('Opção 2')
     else:
         print('Opção inválida')
 
