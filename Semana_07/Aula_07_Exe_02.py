@@ -41,4 +41,4 @@ def primo(x):
     else:
         return True
     
-numeroPrimo()
+fatoresPrimos()
