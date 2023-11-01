@@ -16,7 +16,7 @@ def listaInversa():
     print(conjInverso)
 
 def flores():
-    # Imprimiu sem crias lista, utilizando o print
+    # Imprimiu sem criar lista, utilizando o print
     flores = ["margarida", "rosa", "tulipa", "cravo"]
     tam = len(flores) - 1
     while tam >= 0:
